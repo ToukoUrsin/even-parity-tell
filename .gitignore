@@ -1,0 +1,11 @@
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.DS_Store
+.qmill_refresh
+.qmill_token
+.env
+.env.*
+*.key
+secrets.*

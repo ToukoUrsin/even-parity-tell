@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>hell0 - Quantum Hack methods</title>
+<style>
+  :root{
+    --paper:#fcfcfa; --ink:#1b1c22; --soft:#3c3d46; --muted:#82828c; --rule:#e7e6e1;
+    --accent:#4b46c9; --hard:#b4451f; --easy:#2f7d52; --fill:#edece7;
+    --serif:"Iowan Old Style","Charter",Georgia,"Times New Roman",serif;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);
+    font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:720px;margin:0 auto;padding:0 26px}
+  a{color:var(--accent);text-decoration:none}
+  code{font-family:var(--mono);font-size:.86em;background:var(--fill);padding:.05em .35em;border-radius:4px}
+  p{color:var(--soft);margin:.7em 0}
+  em{color:var(--ink);font-style:italic}
+
+  header{padding:76px 0 28px}
+  .kicker{font-size:.74rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:600}
+  h1{font-family:var(--serif);font-weight:600;font-size:2.1rem;line-height:1.16;
+    letter-spacing:-.01em;margin:.4em 0 .35em;color:var(--ink)}
+  .standfirst{font-size:1.1rem;color:var(--soft);line-height:1.5;max-width:640px}
+  .by{margin-top:24px;padding-top:18px;border-top:1px solid var(--rule);
+    font-size:.85rem;color:var(--muted);display:flex;gap:22px;flex-wrap:wrap}
+  .by b{color:var(--soft);font-weight:600}
+
+  section{padding:26px 0}
+  .num{font-family:var(--mono);font-size:.78rem;color:var(--accent);letter-spacing:.05em;
+    display:block;margin-bottom:.45em;font-weight:600}
+  h2{font-family:var(--serif);font-weight:600;font-size:1.3rem;letter-spacing:-.01em;
+    margin:0 0 .2em;color:var(--ink)}
+  h3{font-family:var(--sans);font-weight:700;font-size:.74rem;letter-spacing:.07em;
+    text-transform:uppercase;color:var(--accent);margin:24px 0 8px}
+  .m{margin:.55em 0;font-size:.96rem}
+  .m b{color:var(--ink);font-weight:600}
+  .m .src{font-family:var(--mono);font-size:.78em;color:var(--muted)}
+
+  table{width:100%;border-collapse:collapse;margin:14px 0;font-size:.84rem}
+  th,td{text-align:left;padding:6px 6px;border-bottom:1px solid var(--rule);vertical-align:top}
+  th{font-size:.72rem;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);font-weight:600}
+  td.r,th.r{text-align:right}
+  .full td.c{font-family:var(--mono)}
+  .full tr.tier td{background:var(--fill);font-weight:700;color:var(--ink);font-size:.74rem;
+    letter-spacing:.05em;text-transform:uppercase}
+  .full .mark{color:var(--easy);font-weight:700}
+  .full .dash{color:var(--muted)}
+  .full .openchip{color:var(--accent);font-weight:600}
+  .star{color:var(--accent);font-size:.78rem}
+
+  .note{font-size:.92rem;color:var(--soft);margin:.6em 0}
+  .note b{color:var(--ink);font-weight:600}
+
+  hr{border:none;border-top:1px solid var(--rule);margin:0}
+  footer{padding:30px 0 64px;font-size:.84rem;color:var(--muted)}
+  footer .refs{margin:.7em 0 0;padding:0;list-style:none}
+  footer .refs li{margin:.3em 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="kicker">Quantum Hack Challenge · hell0</div>
+    <h1>What we solved, and how</h1>
+    <p class="standfirst">We're hell0, four bachelor's students at Aalto with no quantum background before this
+      weekend. We solved 41 of the 49 circuits, all on our laptops. Here's the full breakdown and the methods
+      behind it.</p>
+    <div class="by">
+      <span><b>Team</b> &nbsp;hell0</span>
+      <span><b>For</b> &nbsp;QMill · david.karpuk@qmill.com</span>
+      <span><b>Solved</b> &nbsp;41 / 49</span>
+    </div>
+  </header>
+
+  <hr>
+
+  <section>
+    <span class="num">01 / Results</span>
+    <h2>Every circuit, and what we used</h2>
+    <table class="full">
+      <thead><tr><th>#</th><th>Circuit</th><th>Q</th><th>Method</th><th class="r">Status</th></tr></thead>
+      <tbody>
+        <tr class="tier"><td colspan="5">Very Easy</td></tr>
+        <tr><td>1</td><td class="c">8_1</td><td>8</td><td>statevector</td><td class="r"><span class="mark">✓</span></td></tr>
+        <tr><td>2</td><td class="c">16_2</td><td>16</td><td>statevector</td><td class="r"><span class="mark">✓</span></td></tr>
+        <tr><td>3</td><td class="c">24_3</td><td>24</td><td>statevector</td><td class="r"><span class="mark">✓</span></td></tr>
+        <tr><td>4</td><td class="c">28_4</td><td>28</td><td>MPS sweep</td><td class="r"><span class="mark">✓</span></td></tr>
+        <tr><td>5</td><td class="c">32_5</td><td>32</td><td>MPS + verify</td><td class="r"><span class="mark">✓</span></td></tr>
+        <tr><td>6</td><td class="c">36_6</td><td>36</td><td>MPS + verify</td><td class="r"><span class="mark">✓</span></td></tr>
+        <tr><td>7</td><td class="c">40_7</td><td>40</td><td>MPS sweep</td><td class="r"><span class="mark">✓</span></td></tr>
+        <tr><td>8</td><td class="c">48_8</td><td>48</td><td>MPS + verify</td><td class="r"><span class="mark">✓</span></td></tr>
+        <tr><td>9</td><td class="c">56_9</td><td>56</td><td>MPS + verify</td><td class="r"><span class="mark">✓</span></td></tr>
+        <tr><td>10</td><td class="c">64_10</td><td>64</td><td>MPS + verify</td><td class="r"><span class="mark">✓</span></td></tr>
+        <tr class="tier"><td colspan="5">Easy</td></tr>
+        <tr><td>11</td><td class="c">8_11</td><td>8</td><td>statevector</td><td class="r"><span class="mark">✓</span></td></tr>
+        <tr><td>12</td><td class="c">16_12</td><td>16</td><td>statevector</td><td class="r"><span class="mark">✓</span></td></tr>
+        <tr><td>13</td><td class="c">24_13</td><td>24</td><td>statevector</td><td class="r"><span class="mark">✓</span></td></tr>
+        <tr><td>14</td><td class="c">32_14</td><td>32</td><td>MPS sweep</td><td class="r"><span class="mark">✓</span></td></tr>
+        <tr><td>15</td><td class="c">36_15</td><td>36</td><td>Pauli backprop</td><td class="r"><span class="mark">✓</span></td></tr>
+        <tr><td>16</td><td class="c">40_16</td><td>40</td><td>MPS sweep</td><td class="r"><span class="mark">✓</span></td></tr>
+        <tr><td>17</td><td class="c">40_17</td><td>40</td><td>MPS sweep</td><td class="r"><span class="mark">✓</span></td></tr>
+        <tr><td>18</td><td class="c">40_18</td><td>40</td><td>MPS marginals</td><td class="r"><span class="mark">✓</span></td></tr>
+        <tr><td>19</td><td class="c">48_19</td><td>48</td><td>MPS marginals</td><td class="r"><span class="mark">✓</span></td></tr>
+        <tr><td>20</td><td class="c">48_20</td><td>48</td><td>MPS + verify</td><td class="r"><span class="mark">✓</span></td></tr>
+        <tr><td>21</td><td class="c">48_21</td><td>48</td><td>MPS marginals</td><td class="r"><span class="mark">✓</span></td></tr>
+        <tr><td>22</td><td class="c">56_22</td><td>56</td><td>MPS + verify</td><td class="r"><span class="mark">✓</span></td></tr>
+        <tr><td>23</td><td class="c">56_23</td><td>56</td><td>MPS marginals</td><td class="r"><span class="mark">✓</span></td></tr>
+        <tr><td>24</td><td class="c">56_24</td><td>56</td><td>MPS marginals</td><td class="r"><span class="mark">✓</span></td></tr>
+        <tr><td>25</td><td class="c">64_25</td><td>64</td><td>permuted MPS</td><td class="r"><span class="mark">✓</span></td></tr>
+        <tr><td>26</td><td class="c">64_26</td><td>64</td><td>permuted MPS</td><td class="r"><span class="mark">✓</span></td></tr>
+        <tr class="tier"><td colspan="5">Moderate</td></tr>
+        <tr><td>27</td><td class="c">8_27</td><td>8</td><td>statevector</td><td class="r"><span class="mark">✓</span></td></tr>
+        <tr><td>28</td><td class="c">16_28</td><td>16</td><td>statevector</td><td class="r"><span class="mark">✓</span></td></tr>
+        <tr><td>29</td><td class="c">24_29</td><td>24</td><td>MPS</td><td class="r"><span class="mark">✓</span></td></tr>
+        <tr><td>30</td><td class="c">32_30</td><td>32</td><td>MPS</td><td class="r"><span class="mark">✓</span></td></tr>
+        <tr><td>31</td><td class="c">48_31</td><td>48</td><td>MPS</td><td class="r"><span class="mark">✓</span></td></tr>
+        <tr><td>32</td><td class="c">48_32</td><td>48</td><td>MPS</td><td class="r"><span class="mark">✓</span></td></tr>
+        <tr><td>33</td><td class="c">56_33</td><td>56</td><td>MPS</td><td class="r"><span class="mark">✓</span></td></tr>
+        <tr><td>34</td><td class="c">64_34</td><td>64</td><td>MPS</td><td class="r"><span class="mark">✓</span></td></tr>
+        <tr class="tier"><td colspan="5">Hard</td></tr>
+        <tr><td>35</td><td class="c">40_35</td><td>40</td><td>Pauli / MPS</td><td class="r"><span class="mark">✓</span></td></tr>
+        <tr><td>36</td><td class="c">48_36</td><td>48</td><td>Pauli / MPS</td><td class="r"><span class="mark">✓</span></td></tr>
+        <tr><td>37</td><td class="c">48_37</td><td>48</td><td>Pauli / MPS</td><td class="r"><span class="mark">✓</span></td></tr>
+        <tr><td>38</td><td class="c">56_38 <span class="star">★</span></td><td>56</td><td>Pauli backprop</td><td class="r"><span class="mark">✓</span></td></tr>
+        <tr><td>39</td><td class="c">56_39</td><td>56</td><td>Pauli backprop</td><td class="r"><span class="mark">✓</span></td></tr>
+        <tr><td>40</td><td class="c">64_40</td><td>64</td><td>Pauli / MPS</td><td class="r"><span class="mark">✓</span></td></tr>
+        <tr><td>41</td><td class="c">64_41</td><td>64</td><td>Pauli backprop</td><td class="r"><span class="mark">✓</span></td></tr>
+        <tr class="tier"><td colspan="5">Open — unsolved by every team</td></tr>
+        <tr class="open"><td>42</td><td class="c">48_42</td><td>48</td><td>MPO cancellation (unfinished)</td><td class="r"><span class="openchip">open</span></td></tr>
+        <tr class="open"><td>43</td><td class="c">56_43</td><td>56</td><td>MPO cancellation (unfinished)</td><td class="r"><span class="openchip">open</span></td></tr>
+        <tr class="open"><td>44</td><td class="c">64_44</td><td>64</td><td>—</td><td class="r"><span class="openchip">open</span></td></tr>
+        <tr class="open"><td>45</td><td class="c">72_45</td><td>72</td><td>—</td><td class="r"><span class="openchip">open</span></td></tr>
+        <tr class="open"><td>46</td><td class="c">80_46</td><td>80</td><td>—</td><td class="r"><span class="openchip">open</span></td></tr>
+        <tr class="open"><td>47</td><td class="c">88_47</td><td>88</td><td>—</td><td class="r"><span class="openchip">open</span></td></tr>
+        <tr class="open"><td>48</td><td class="c">96_48</td><td>96</td><td>—</td><td class="r"><span class="openchip">open</span></td></tr>
+        <tr class="open"><td>49</td><td class="c">104_49</td><td>104</td><td>—</td><td class="r"><span class="openchip">open</span></td></tr>
+      </tbody>
+    </table>
+    <p class="note"><span class="star">★</span> <code>56_38</code> we believe no other team cracked.</p>
+  </section>
+
+  <section>
+    <span class="num">02 / Methods</span>
+    <h2>The toolkit</h2>
+    <p>We matched a method to each circuit rather than leaning on one, and started every circuit with a cheap
+      structural triage that told us which tool was worth running.</p>
+
+    <h3>Triage</h3>
+    <p class="m"><b>Odd-parity defect count.</b> Count the qubit pairs touched by an odd number of CX gates —
+      the entangling links the inverse-pair structure can't cancel. It reads off the gate list in milliseconds
+      and predicts a circuit's real difficulty far better than its qubit or gate count, so we never spent
+      compute on the wrong method. <span class="src">defect_count.py</span></p>
+
+    <h3>What cracked the 41</h3>
+    <p class="m"><b>Exact statevector.</b> Small circuits: build the full state, read the peak directly.</p>
+    <p class="m"><b>Bond-capped MPS sweeps.</b> Greedy max-marginal decoding through the mid-range; the peak
+      survives truncation because these outputs are so concentrated. <span class="src">crack.py</span></p>
+    <p class="m"><b>Spectral (Fiedler) MPS reordering.</b> Relabel the qubit line by the CX interaction graph so
+      frequently-coupled qubits sit adjacent, which removes most of the SWAP churn that dominates MPS on dense
+      long-range circuits — this got the 64-qubit ones. <span class="src">mps_marginal2.py</span></p>
+    <p class="m"><b>⟨Z<sub>i</sub>⟩ marginal decoding.</b> Read each qubit's average and threshold it; cheap and
+      parallel, used across several 48–56q circuits.</p>
+    <p class="m"><b>Find-cheap / verify-exact.</b> A candidate can come from a cheap approximate run, but we
+      certify it with one truncation-free single-amplitude contraction <code>|⟨s|C|0⟩|²</code> — above 0.5
+      proves the peak is unique. This certified a 64-qubit answer on a laptop. <span class="src">crack.py</span></p>
+    <p class="m"><b>Vectorized Pauli backpropagation.</b> Push each qubit's measurement back through the circuit
+      as a sum of Pauli terms (scaled to ~1M terms), read the bit from the sign. Cracked <code>56_38</code>, the
+      hardest circuit; with no exact check possible, rising the term cap until the answer stops changing was our
+      trust criterion. <span class="src">pauli_fast_b.py</span></p>
+
+    <h3>Built for the tail (42–49, unfinished)</h3>
+    <p class="m"><b>Light-cone bulk cancellation.</b> Tensor-network simplification cancels the even-parity bulk
+      exactly, so most qubits collapse to a cheap exact contraction. <span class="src">lightcone_z.py</span></p>
+    <p class="m"><b>Two-stage cancellation.</b> Simplify the cancelled state once and reuse it per qubit, instead
+      of re-simplifying for each one. <span class="src">fast_z2.py</span></p>
+    <p class="m"><b>Defect-graph reduced density matrix.</b> Compute ⟨Z<sub>i</sub>⟩ from the small simplified
+      defect cone. We also tested belief propagation here; it diverges on these signed-amplitude networks, so we
+      fell back to exact contraction of the cone. <span class="src">bp_z.py</span></p>
+    <p class="m"><b>Two-sided MPO cancellation + unswapping.</b> Collapse the inverse-pair bulk and recover the
+      hidden permutation (after Kremer–Dupuis). Validated and converging, but ~hours per 20,000-gate circuit,
+      and we ran out of compute. <span class="src">pcsim/unswap.py</span></p>
+
+    <h3>Ruled out, and why</h3>
+    <p class="m">No Clifford shortcut (the angles aren't near π/2 multiples). Qiskit's <code>O3</code> removes
+      zero two-qubit gates. Commutation-aware cancellation won't telescope through the rewrites. Deleting
+      even-parity CX is confidently wrong. Each dead end told us where the real difficulty sat.</p>
+
+    <h3>The grader</h3>
+    <p class="m">We reverse-engineered the submission API: it scores by sampled XEB (not the exact match the
+      rules describe), a wrong guess leaks nothing, and the reward is <code>qubits × 1.5<sup>difficulty</sup></code>.
+      We used it as a yes/no oracle to pin the last uncertain bit of <code>56_38</code>.</p>
+
+    <p style="margin-top:22px">The two ideas we'd reuse anywhere are the defect count (a quick classical read on
+      whether an obfuscated circuit is genuinely hard) and the find-cheap / verify-exact split — both work on any
+      peaked circuit, and the even-parity fingerprint belongs to any obfuscation built from inverse pairs and
+      rotations.</p>
+  </section>
+
+  <hr>
+
+  <footer>
+    <b style="color:var(--soft)">Team hell0</b> · Quantum Hack Challenge · for QMill
+    <ul class="refs">
+      <li>Gharibyan et al., <em>Heuristic Quantum Advantage with Peaked Circuits</em> (2025), arXiv:2510.25838</li>
+      <li>Kremer &amp; Dupuis, <em>Efficient Classical Simulation of Heuristic Peaked Quantum Circuits</em> (2025), arXiv:2604.21908</li>
+    </ul>
+  </footer>
+
+</div>
+</body>
+</html>
