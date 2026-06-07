@@ -2,7 +2,7 @@
 
 **Cracking QMill's obfuscated peaked circuits — Quantum Hack 2026 · team hell0.**
 
-> 41 of 49 obfuscated peaked circuits cracked on laptops — including `56_38`, which we believe no other team solved — by triaging structure before throwing compute at it.
+> 41 of 49 obfuscated peaked circuits cracked on laptops — more than any other team, including `56_38`, which no other team solved — by triaging structure before throwing compute at it.
 
 We're four bachelor's students at Aalto (maths + industrial engineering), with no quantum background before this weekend. We solved all 41 on our laptops.
 
